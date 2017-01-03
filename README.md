@@ -1,6 +1,6 @@
 ### chrome extension 前端调试
 
-![](other/2017-01-03-18-46-58.png)
+![](other/index.jpeg)
 
 ### 进度板
 
