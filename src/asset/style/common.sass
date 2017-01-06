@@ -1,0 +1,122 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header,
+footer,
+section,
+radio,
+div,
+p,
+li,
+ul,
+dd,
+a,
+form,
+input,
+label {
+    box-sizing: border-box;
+}
+
+body {
+    width: 250px;
+    padding: 10px;
+    background: #16C2C2;
+    color: #ffffff;
+}
+
+.pull-right {
+    float: right!important;
+}
+
+.pull-left {
+    float: left!important;
+}
+
+.text-right {
+    text-align: right!important;
+}
+
+.text-left {
+    text-align: left!important;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.text-hide {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.show {
+    display: block!important;
+}
+
+
+/*隐藏且不保留占位*/
+
+.hide {
+    display: none!important;
+}
+
+
+/*隐藏且保留占位*/
+
+.invisible {
+    visibility: hidden!important;
+}
+
+
+/*清楚浮动 并 消除上下margin叠加bug*/
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.border-box {
+    box-sizing: border-box;
+}
+
+.divider {
+    height: 1px;
+    background: #ffffff;
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 90%, #16C2C2); 
+    margin:5px 0;
+}
+
+/*业务代码*/
+
+header {
+    padding:2px 0;
+}
+header i {
+    margin-right: 5px;
+}
+
+.form-input-group label,
+input {
+    display: inline-block;
+}
+
+.form-input-group input {
+    width: 30%;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    margin-left: 5px;
+    padding: 2px;
+}
