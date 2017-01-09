@@ -17,9 +17,11 @@
     * url匹配
     * 是否新标签
     * 是否新窗口
+    * 多参数
+
 * 网络请求参数查看
     * 请求参数header\requet-body
     * 回参header\response-body
     * 近两次数据对比
 
-
+* json本地配置文件

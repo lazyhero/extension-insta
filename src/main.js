@@ -1,3 +1,5 @@
+import CommonCss from "./asset/style/common.css"
+import IconFont from "./asset/style/iconfont.css"
 import Vue from "vue"
 
 const vm = new Vue({
