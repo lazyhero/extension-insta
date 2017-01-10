@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "../dist/js/" + chunkId + "." + {"1":"e907dd7c7259aef9307d","2":"c1fb1aa0156e0728f7a3"}[chunkId] + ".js";
+/******/ 			script.src = __webpack_require__.p + "../dist/js/" + chunkId + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -92,4 +92,4 @@
 /******/ })
 /************************************************************************/
 /******/ ([]);
-//# sourceMappingURL=manifest.6822f59f4030ab338433.js.map
+//# sourceMappingURL=manifest.js.map

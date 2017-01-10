@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "音思塔前端调试工具",
+  "description": "为懒而生……",
+  "version": "1.0",
+  "icons":{
+    "16":"images/logo.png",
+    "48":"images/logo.png",
+    "128":"images/logo.png"
+  },
+  "browser_action": {
+    "default_icon": "images/logo.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "tabs","storage"
+  ],
+  "background":{
+    "scripts":["js/vendor.js"],
+    "persistent": false
+  }
+}

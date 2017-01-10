@@ -58,4 +58,4 @@ webpackJsonp([2,0],[
 
 /***/ }
 ]);
-//# sourceMappingURL=app.c1fb1aa0156e0728f7a3.js.map
+//# sourceMappingURL=app.js.map
