@@ -5,9 +5,9 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/popup.html'),
-    assetsRoot: path.resolve(__dirname, '/'),
-    assetsSubDirectory: '../dist',
-    assetsPublicPath: '/',
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: '',
+    assetsPublicPath: '',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
