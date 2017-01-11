@@ -28,6 +28,7 @@ module.exports = {
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
       'tool': path.resolve(__dirname, '../src/vendor/tool.js'),
+      'chromeapi': path.resolve(__dirname, '../src/vendor/chromeapi.js'),
     }
   },
   resolveLoader: {

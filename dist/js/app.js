@@ -1,13 +1,14 @@
-webpackJsonp([1,0],[
-/* 0 */
+webpackJsonp([2,0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var CommonCss = __webpack_require__(4);
-	var IconFont = __webpack_require__(5);
-	var Vue = __webpack_require__(8);
-	var MainComponent = __webpack_require__(6);
+	var CommonCss = __webpack_require__(72);
+	var IconFont = __webpack_require__(73);
+	var Vue = __webpack_require__(79);
+	var MainComponent = __webpack_require__(77);
 	
 	var app = new Vue({
 	    render: function render(h) {
@@ -16,14 +17,27 @@ webpackJsonp([1,0],[
 	}).$mount("#extension");
 
 /***/ },
-/* 1 */
+
+/***/ 33:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _tool = __webpack_require__(2);
+	var _regenerator = __webpack_require__(37);
+	
+	var _regenerator2 = _interopRequireDefault(_regenerator);
+	
+	var _asyncToGenerator2 = __webpack_require__(36);
+	
+	var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+	
+	var _tool = __webpack_require__(35);
 	
 	var _tool2 = _interopRequireDefault(_tool);
+	
+	var _chromeapi = __webpack_require__(34);
+	
+	var _chromeapi2 = _interopRequireDefault(_chromeapi);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39,27 +53,104 @@ webpackJsonp([1,0],[
 	        console.log(ctx.$el);
 	    },
 	    methods: {
-	        applyDebugEnv: function applyDebugEnv() {
-	            var ctx = this;
+	        applyDebugEnv: function () {
+	            var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+	                var ctx, tab, isSave;
+	                return _regenerator2.default.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                ctx = this;
+	                                _context.next = 3;
+	                                return _chromeapi2.default.getCurrentTab();
 	
-	            chrome.tabs.getSelected(null, function (tab) {
-	                var _curTab = tab,
-	                    _curTabId = tab.id;
-	                chrome.storage.local.set({
-	                    debug_env: ctx.debug_env,
-	                    debug_env_profix: ctx.debug_env_profix
-	                }, function () {
-	                    chrome.tabs.update(_curTabId.id, {
-	                        url: _tool2.default.assembleParamBySymbol(_curTab.url, ctx.debug_env_profix, ctx.debug_env)
-	                    });
-	                });
-	            });
-	        }
+	                            case 3:
+	                                tab = _context.sent;
+	
+	                                console.log(tab);
+	                                _context.next = 7;
+	                                return _chromeapi2.default.localSave({
+	                                    debug_env: ctx.debug_env,
+	                                    debug_env_profix: ctx.debug_env_profix
+	                                });
+	
+	                            case 7:
+	                                isSave = _context.sent;
+	
+	                                if (isSave) {
+	                                    _chromeapi2.default.updateTab(tab.id, _tool2.default.assembleParamBySymbol(tab.url, ctx.debug_env_profix, ctx.debug_env));
+	                                }
+	
+	                            case 9:
+	                            case "end":
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this);
+	            }));
+	
+	            function applyDebugEnv() {
+	                return _ref.apply(this, arguments);
+	            }
+	
+	            return applyDebugEnv;
+	        }()
 	    }
 	};
 
 /***/ },
-/* 2 */
+
+/***/ 34:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _promise = __webpack_require__(20);
+	
+	var _promise2 = _interopRequireDefault(_promise);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getCurrentTab = function getCurrentTab() {
+	    return new _promise2.default(function (resolve, reject) {
+	        chrome.tabs.getSelected(null, function (tab) {
+	            if (tab) {
+	                resolve(tab);
+	            } else {
+	                var error = new Error("未获取到当前tab");
+	                reject(error);
+	            }
+	        });
+	    });
+	};
+	
+	var localSave = function localSave(obj) {
+	    return new _promise2.default(function (resolve, reject) {
+	        chrome.storage.local.set(obj, function (error) {
+	            if (error) {
+	                reject(error);
+	            } else {
+	                resolve(true);
+	            }
+	        });
+	    });
+	};
+	
+	var updateTab = function updateTab(tabId, url, callback) {
+	    chrome.tabs.update(tabId, url, function () {
+	        callback && callback();
+	    });
+	};
+	
+	module.exports = {
+	    getCurrentTab: getCurrentTab,
+	    localSave: localSave,
+	    updateTab: updateTab
+	};
+
+/***/ },
+
+/***/ 35:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -117,38 +208,42 @@ webpackJsonp([1,0],[
 	};
 
 /***/ },
-/* 3 */
+
+/***/ 71:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 4 */
+
+/***/ 72:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 5 */
+
+/***/ 73:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 6 */
+
+/***/ 77:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = {}
 	
 	/* styles */
-	__webpack_require__(3)
+	__webpack_require__(71)
 	
 	/* script */
-	__vue_exports__ = __webpack_require__(1)
+	__vue_exports__ = __webpack_require__(33)
 	
 	/* template */
-	var __vue_template__ = __webpack_require__(7)
+	var __vue_template__ = __webpack_require__(78)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -167,7 +262,8 @@ webpackJsonp([1,0],[
 
 
 /***/ },
-/* 7 */
+
+/***/ 78:
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -221,5 +317,6 @@ webpackJsonp([1,0],[
 	}]}
 
 /***/ }
-]);
+
+});
 //# sourceMappingURL=app.js.map

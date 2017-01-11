@@ -16,3 +16,27 @@ const getCurrentTab = function () {
         });
     })
 }
+
+const localSave = function (obj) {
+    return new Promise(function (resolve, reject) {
+        chrome.storage.local.set(obj, function (error) {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(true)
+            }
+        })
+    })
+}
+
+const updateTab = function (tabId, url,callback) {
+        chrome.tabs.update(tabId, url, function () {
+            callback&&callback();
+        })
+}
+
+module.exports = {
+    getCurrentTab,
+    localSave,
+    updateTab
+}
