@@ -12,7 +12,8 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    check: './src/vendor/check.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -29,6 +30,8 @@ module.exports = {
       'components': path.resolve(__dirname, '../src/components'),
       'tool': path.resolve(__dirname, '../src/vendor/tool.js'),
       'chromeapi': path.resolve(__dirname, '../src/vendor/chromeapi.js'),
+      'chromeapi-tab': path.resolve(__dirname, '../src/vendor/chromeapi-tab.js'),
+      'chromeapi-storage': path.resolve(__dirname, '../src/vendor/chromeapi-storage.js'),
     }
   },
   resolveLoader: {

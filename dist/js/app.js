@@ -5,10 +5,10 @@ webpackJsonp([2,0],{
 
 	"use strict";
 	
-	var CommonCss = __webpack_require__(72);
-	var IconFont = __webpack_require__(73);
-	var Vue = __webpack_require__(79);
-	var MainComponent = __webpack_require__(77);
+	var CommonCss = __webpack_require__(74);
+	var IconFont = __webpack_require__(75);
+	var Vue = __webpack_require__(81);
+	var MainComponent = __webpack_require__(79);
 	
 	var app = new Vue({
 	    render: function render(h) {
@@ -18,100 +18,55 @@ webpackJsonp([2,0],{
 
 /***/ },
 
-/***/ 33:
+/***/ 14:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _regenerator = __webpack_require__(37);
-	
-	var _regenerator2 = _interopRequireDefault(_regenerator);
-	
-	var _asyncToGenerator2 = __webpack_require__(36);
-	
-	var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-	
-	var _tool = __webpack_require__(35);
-	
-	var _tool2 = _interopRequireDefault(_tool);
-	
-	var _chromeapi = __webpack_require__(34);
-	
-	var _chromeapi2 = _interopRequireDefault(_chromeapi);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	module.exports = {
-	    data: function data() {
-	        return {
-	            debug_env: "",
-	            debug_env_profix: "_debug_env"
-	        };
-	    },
-	    mounted: function mounted() {
-	        var ctx = this;
-	        console.log(ctx.$el);
-	    },
-	    methods: {
-	        applyDebugEnv: function () {
-	            var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-	                var ctx, tab, isSave;
-	                return _regenerator2.default.wrap(function _callee$(_context) {
-	                    while (1) {
-	                        switch (_context.prev = _context.next) {
-	                            case 0:
-	                                ctx = this;
-	                                _context.next = 3;
-	                                return _chromeapi2.default.getCurrentTab();
-	
-	                            case 3:
-	                                tab = _context.sent;
-	
-	                                console.log(tab);
-	                                _context.next = 7;
-	                                return _chromeapi2.default.localSave({
-	                                    debug_env: ctx.debug_env,
-	                                    debug_env_profix: ctx.debug_env_profix
-	                                });
-	
-	                            case 7:
-	                                isSave = _context.sent;
-	
-	                                if (isSave) {
-	                                    _chromeapi2.default.updateTab(tab.id, _tool2.default.assembleParamBySymbol(tab.url, ctx.debug_env_profix, ctx.debug_env));
-	                                }
-	
-	                            case 9:
-	                            case "end":
-	                                return _context.stop();
-	                        }
-	                    }
-	                }, _callee, this);
-	            }));
-	
-	            function applyDebugEnv() {
-	                return _ref.apply(this, arguments);
-	            }
-	
-	            return applyDebugEnv;
-	        }()
-	    }
-	};
-
-/***/ },
-
-/***/ 34:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _promise = __webpack_require__(20);
+	var _promise = __webpack_require__(5);
 	
 	var _promise2 = _interopRequireDefault(_promise);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var getCurrentTab = function getCurrentTab() {
+	var save = function save(obj) {
+	    return new _promise2.default(function (resolve, reject) {
+	        chrome.storage.local.set(obj, function (error) {
+	            if (error) {
+	                reject(error);
+	            } else {
+	                resolve(true);
+	            }
+	        });
+	    });
+	};
+	
+	var get = function get(getParamArray) {
+	    return new _promise2.default(function (resolve, reject) {
+	        chrome.storage.local.get(getParamArray, function (result) {
+	            resolve(result);
+	        });
+	    });
+	};
+	
+	module.exports = {
+	    save: save, get: get
+	};
+
+/***/ },
+
+/***/ 15:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _promise = __webpack_require__(5);
+	
+	var _promise2 = _interopRequireDefault(_promise);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getCurrent = function getCurrent() {
 	    return new _promise2.default(function (resolve, reject) {
 	        chrome.tabs.getSelected(null, function (tab) {
 	            if (tab) {
@@ -124,33 +79,56 @@ webpackJsonp([2,0],{
 	    });
 	};
 	
-	var localSave = function localSave(obj) {
-	    return new _promise2.default(function (resolve, reject) {
-	        chrome.storage.local.set(obj, function (error) {
-	            if (error) {
-	                reject(error);
-	            } else {
-	                resolve(true);
-	            }
-	        });
-	    });
-	};
-	
-	var updateTab = function updateTab(tabId, url, callback) {
-	    chrome.tabs.update(tabId, url, function () {
+	var update = function update(tabId, url, callback) {
+	    chrome.tabs.update(tabId, {
+	        url: url
+	    }, function () {
 	        callback && callback();
 	    });
 	};
 	
+	var reload = function reload(tabId) {
+	    return new _promise2.default(function (resolve, reject) {
+	        chrome.tabs.reload(tabId, function () {
+	            resolve(true);
+	        });
+	    });
+	};
+	
+	var on = function on(type, handler) {
+	    switch (type) {
+	        case "update":
+	            chrome.tabs.onUpdated.addListener(handler);
+	            break;
+	    }
+	};
+	
 	module.exports = {
-	    getCurrentTab: getCurrentTab,
-	    localSave: localSave,
-	    updateTab: updateTab
+	    getCurrent: getCurrent,
+	    update: update,
+	    on: on,
+	    reload: reload
 	};
 
 /***/ },
 
-/***/ 35:
+/***/ 16:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var tabApi = __webpack_require__(15);
+	
+	var storageApi = __webpack_require__(14);
+	
+	module.exports = {
+	    tab: tabApi,
+	    storage: storageApi
+	};
+
+/***/ },
+
+/***/ 17:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -209,17 +187,85 @@ webpackJsonp([2,0],{
 
 /***/ },
 
-/***/ 71:
-/***/ function(module, exports) {
+/***/ 39:
+/***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 72:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
+	"use strict";
+	
+	var _regenerator = __webpack_require__(26);
+	
+	var _regenerator2 = _interopRequireDefault(_regenerator);
+	
+	var _asyncToGenerator2 = __webpack_require__(25);
+	
+	var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+	
+	var _tool = __webpack_require__(17);
+	
+	var _tool2 = _interopRequireDefault(_tool);
+	
+	var _chromeapi = __webpack_require__(16);
+	
+	var _chromeapi2 = _interopRequireDefault(_chromeapi);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	module.exports = {
+	    data: function data() {
+	        return {
+	            debug_env: "",
+	            debug_env_profix: "_debug_env"
+	        };
+	    },
+	    mounted: function mounted() {
+	        var ctx = this;
+	        console.log(ctx.$el);
+	    },
+	    methods: {
+	        applyDebugEnv: function () {
+	            var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+	                var ctx, tab, isSave;
+	                return _regenerator2.default.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                ctx = this;
+	                                _context.next = 3;
+	                                return _chromeapi2.default.tab.getCurrent();
+	
+	                            case 3:
+	                                tab = _context.sent;
+	
+	                                console.log(tab);
+	                                _context.next = 7;
+	                                return _chromeapi2.default.storage.save({
+	                                    debug_env: ctx.debug_env,
+	                                    debug_env_profix: ctx.debug_env_profix
+	                                });
+	
+	                            case 7:
+	                                isSave = _context.sent;
+	
+	                                if (isSave) {
+	                                    _chromeapi2.default.tab.update(tab.id, _tool2.default.assembleParamBySymbol(tab.url, ctx.debug_env_profix, ctx.debug_env));
+	                                }
+	
+	                            case 9:
+	                            case "end":
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this);
+	            }));
+	
+	            function applyDebugEnv() {
+	                return _ref.apply(this, arguments);
+	            }
+	
+	            return applyDebugEnv;
+	        }()
+	    }
+	};
 
 /***/ },
 
@@ -230,20 +276,34 @@ webpackJsonp([2,0],{
 
 /***/ },
 
-/***/ 77:
+/***/ 74:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 75:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 79:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = {}
 	
 	/* styles */
-	__webpack_require__(71)
+	__webpack_require__(73)
 	
 	/* script */
-	__vue_exports__ = __webpack_require__(33)
+	__vue_exports__ = __webpack_require__(39)
 	
 	/* template */
-	var __vue_template__ = __webpack_require__(78)
+	var __vue_template__ = __webpack_require__(80)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -263,7 +323,7 @@ webpackJsonp([2,0],{
 
 /***/ },
 
-/***/ 78:
+/***/ 80:
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

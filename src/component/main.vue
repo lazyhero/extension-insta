@@ -39,29 +39,14 @@
             applyDebugEnv:async function () {
                 var ctx = this;
                 //async化
-                var tab = await ChromeApi.getCurrentTab();
-                console.log(tab)
-                var isSave = await ChromeApi.localSave({
+                var tab = await ChromeApi.tab.getCurrent();
+                var isSave = await ChromeApi.storage.save({
                     debug_env:ctx.debug_env,
                     debug_env_profix:ctx.debug_env_profix
                 })
                 if(isSave){
-                    ChromeApi.updateTab(tab.id,Tool.assembleParamBySymbol(tab.url,ctx.debug_env_profix,ctx.debug_env));
+                    ChromeApi.tab.update(tab.id,Tool.assembleParamBySymbol(tab.url,ctx.debug_env_profix,ctx.debug_env));
                 }
-                // chrome.tabs.getSelected(null, function (tab) {
-                //     var _curTab = tab,
-                //         _curTabId = tab.id;
-                //     chrome.storage.local.set({
-                //         debug_env: ctx.debug_env,
-                //         debug_env_profix: ctx.debug_env_profix
-                //     }, function () {
-                //         //刷新当前标签页
-                //         chrome.tabs.update(_curTabId.id, {
-                //             url: Tool.assembleParamBySymbol(_curTab.url, ctx.debug_env_profix,
-                //                 ctx.debug_env)
-                //         })
-                //     })
-                // });
             }
         }
     }

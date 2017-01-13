@@ -17,7 +17,7 @@
     "tabs","storage"
   ],
   "background":{
-    "scripts":["js/vendor.js"],
+    "scripts":["js/check.js"],
     "persistent": false
   }
 }
